@@ -1,10 +1,9 @@
-
 ion-content {
     // --background: #353A50;
     --background: var(--ion-color-dark);
 }
 
-.login-content {
+.register-content {
     text-align: center;
     height: 100%;
 }
@@ -15,10 +14,7 @@ ion-content {
     transform: translateY(-50%);   
 }
 
-.logo {
-    margin: 0 auto;
-    display: block;
-    border-radius: 50%;
-    height: 200px;
-    width: 200px;
+.sign-up {
+    padding: 10px;
+    color: var(--ion-color-medium);
 }
