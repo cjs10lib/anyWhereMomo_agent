@@ -1,0 +1,8 @@
+{
+  "name": "anyWhereMomo_agent",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "pro_id": "29b5154d"
+}
