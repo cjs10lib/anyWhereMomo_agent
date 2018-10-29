@@ -3,7 +3,15 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyC9EBLO7NxPEEFujrJkhI1NCOACA5RqKN8',
+    authDomain: 'anywhere-momo.firebaseapp.com',
+    databaseURL: 'https://anywhere-momo.firebaseio.com',
+    projectId: 'anywhere-momo',
+    storageBucket: 'anywhere-momo.appspot.com',
+    messagingSenderId: '782973726142'
+  }
 };
 
 /*
