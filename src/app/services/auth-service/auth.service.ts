@@ -11,6 +11,18 @@ export class AuthService {
 
   constructor(private auth: AngularFireAuth) { }
 
+  signInWithEmailAndPassword(account: Account) {
+    try {
+      return <LoginResponse> {
+        result: this.auth.auth.signInWithEmailAndPassword(account.email, account.password)
+      };
+    } catch (e) {
+      return <LoginResponse> {
+        error: e
+      };
+    }
+  }
+
   signUpWithEmailAndPassword(account: Account) {
     try {
       return <LoginResponse> {

@@ -1,5 +1,7 @@
+import { AuthService } from './../../services/auth-service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Account } from '../../models/account/account.model';
 
 @Component({
   selector: 'app-login-form',
@@ -8,9 +10,15 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  account = {} as Account;
+
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() { }
+
+  async login() {
+    const result = await this.authService.signInWithEmailAndPassword(this.account);
+  }
 
   navigateToRegisterPage() {
     this.router.navigate(['register']);
