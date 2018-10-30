@@ -23,7 +23,6 @@ export class LoginPage implements OnInit {
       this.navCtrl.navigateRoot('/edit-profile');
     } else {
       this.authError = event;
-      console.error(event);
     }
   }
 }

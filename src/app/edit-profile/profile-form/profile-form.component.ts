@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 
 import { Profile } from '../../models/profile/profile.model';
 import { AuthService } from '../../services/auth-service/auth.service';
@@ -13,6 +13,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./profile-form.component.scss']
 })
 export class ProfileFormComponent implements OnInit, OnDestroy {
+
+  @Output() saveProfileResult: EventEmitter<boolean>;
 
   account: User;
 
@@ -31,7 +33,9 @@ export class ProfileFormComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private authService: AuthService, private profileService: ProfileService, private router: Router) { }
+  constructor(private authService: AuthService, private profileService: ProfileService) {
+    this.saveProfileResult = new EventEmitter<boolean>();
+  }
 
   ngOnInit() {
     this.subscription = this.authService.getAuthState().subscribe(user => {
@@ -47,6 +51,7 @@ export class ProfileFormComponent implements OnInit, OnDestroy {
 
   async saveProfile() {
     const result = await this.profileService.addProfile(this.profile, this.account);
+    this.saveProfileResult.emit(result);
   }
 
 }
