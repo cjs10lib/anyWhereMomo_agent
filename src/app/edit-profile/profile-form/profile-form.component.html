@@ -1,0 +1,83 @@
+<form #f="ngForm">
+  <div class="profile-form">
+    <ion-item-divider color="dark">
+      <ion-label color="light">Personal Information</ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label position="floating" color="medium">First Name</ion-label>
+      <ion-input color="medium" [(ngModel)]="profile.firstName" name="firstName" #firstName="ngModel" required></ion-input>
+    </ion-item>
+    <div *ngIf="firstName.touched && firstName.invalid">
+      <span class="global-error">First name is <strong>required</strong></span>
+    </div>
+  
+    <ion-item>
+      <ion-label position="floating" color="medium">Last Name</ion-label>
+      <ion-input color="medium" [(ngModel)]="profile.lastName" name="lastName" #lastName="ngModel" required></ion-input>
+    </ion-item>
+    <div *ngIf="lastName.touched && lastName.invalid">
+      <span class="global-error">Last name is <strong>required</strong></span>
+    </div>
+    
+    <ion-item-divider color="dark">
+      <ion-label color="light">Business Information</ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label position="floating" color="medium">Company Name</ion-label>
+      <ion-input color="medium" [(ngModel)]="profile.business.companyName" name="companyName" #companyName="ngModel" required></ion-input>
+    </ion-item>
+    <div *ngIf="companyName.touched && companyName.invalid">
+      <span class="global-error">Company name is <strong>required</strong></span>
+    </div>
+  
+    <ion-item>
+      <ion-label position="floating" color="medium">Business Type</ion-label>
+      <ion-select [(ngModel)]="profile.business.businessType" name="businessType" #businessType="ngModel" required>
+        <ion-select-option color="medium" *ngFor="let business of businessTypes" [value]="business.code">
+          {{ business.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="businessType.touched && businessType.invalid">
+      <span class="global-error">Business type is <strong>required</strong></span>
+    </div>
+  
+    <ion-item>
+      <ion-label position="floating" color="medium">Mobile Phone</ion-label>
+      <ion-input color="medium" [(ngModel)]="profile.business.contact.mobilePhone" name="mobilePhone" #mobilePhone="ngModel" required></ion-input>
+    </ion-item>
+    <div *ngIf="mobilePhone.touched && mobilePhone.invalid">
+      <span class="global-error">Mobile phone is <strong>required</strong></span>
+    </div>
+  
+    <ion-item>
+      <ion-label position="floating" color="medium">Office Phone</ion-label>
+      <ion-input color="medium" [(ngModel)]="profile.business.contact.officePhone" name="officePhone" #officePhone="ngModel" required></ion-input>
+    </ion-item>
+    <div *ngIf="officePhone.touched && officePhone.invalid">
+      <span class="global-error">Office phone is <strong>required</strong></span>
+    </div>
+  
+    <!-- <ion-item>
+      <ion-label position="floating" color="medium">Email</ion-label>
+      <ion-input color="medium" [(ngModel)]="profile.business.contact.email" name="email" #email="ngModel" required></ion-input>
+    </ion-item>
+    <div *ngIf="email.touched && email.invalid">
+      <span class="global-error">Email is <strong>required</strong></span>
+    </div> -->
+  
+    <ion-item>
+      <ion-label position="floating" color="medium">Address</ion-label>
+      <ion-textarea color="medium" [(ngModel)]="profile.business.contact.address" name="address" #address="ngModel" required></ion-textarea>
+    </ion-item>
+    <div *ngIf="address.touched && address.invalid">
+      <span class="global-error">Address is <strong>required</strong></span>
+    </div>
+  
+    <div class="actions">
+      <ion-button color="primary" expand="block" fill="solid" (click)="saveProfile()" [disabled]="f.invalid">NEXT STEP</ion-button>
+    </div>
+  </div>
+</form>

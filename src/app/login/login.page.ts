@@ -16,11 +16,11 @@ export class LoginPage implements OnInit {
 
   ngOnInit() { }
 
-  async login(event) {
+  async login(event: LoginResponse) {
     if (!event.error) {
       (await this.toastCtrl.create({ message: `Welcome to beep ${event.result.user.email}`, duration: 3000 })).present();
 
-      this.navCtrl.navigateRoot('/');
+      this.navCtrl.navigateRoot('/edit-profile');
     } else {
       this.authError = event;
       console.error(event);
