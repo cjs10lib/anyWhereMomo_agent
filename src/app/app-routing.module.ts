@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'edit-profile', loadChildren: './edit-profile/edit-profile.module#EditProfilePageModule' },
   { path: 'avatar-upload/:id', loadChildren: './avatar-upload/avatar-upload.module#AvatarUploadPageModule' },
-  { path: 'account-status/:id', loadChildren: './account-status/account-status.module#AccountStatusPageModule' }
+  { path: 'account-status/:id', loadChildren: './account-status/account-status.module#AccountStatusPageModule' },
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' }
 ];
 
 @NgModule({

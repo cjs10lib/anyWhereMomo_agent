@@ -2,7 +2,7 @@
   <ion-menu-button></ion-menu-button>
 
   <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button >
+    <ion-fab-button (click)="navigateToProfilePage()" [routerDirection]="'forward'">
       <ion-avatar>
         <img src="assets/avatar/avatar.png">
       </ion-avatar>

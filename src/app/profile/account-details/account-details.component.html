@@ -1,0 +1,51 @@
+<ion-card>
+  <ion-card-header>
+    <div class="account-bio">      
+      <ion-card-title>{{ profile?.firstName }} {{ profile?.lastName }}</ion-card-title>
+    
+      <ion-card-subtitle>
+        <ion-icon name="compass" color="primary"></ion-icon>
+        {{ profile?.business?.contact?.address }}
+      </ion-card-subtitle>
+      <ion-button expand="block" fill="outline" color="primary">Log Out</ion-button>
+    </div>
+  </ion-card-header>
+
+  <ion-card-content>
+
+    <div class="account-profile">
+
+      <ion-item-divider>
+        <ion-label>Business</ion-label>
+      </ion-item-divider>
+  
+      <ion-item>
+        <ion-label color="primary" position="floating">Company Name</ion-label>
+        <ion-input [value]="profile.business.companyName" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Business Type</ion-label>
+        <ion-input [value]="profile.business.businessType" readonly></ion-input>
+      </ion-item>
+  
+      <ion-item-divider>
+        <ion-label>Contacts</ion-label>
+      </ion-item-divider>
+  
+      <ion-item>
+        <ion-label color="primary" position="floating">Mobile Phone</ion-label>
+        <ion-input [value]="profile.business.contact.mobilePhone" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Office Phone</ion-label>
+        <ion-input [value]="profile.business.contact.officePhone" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Email</ion-label>
+        <ion-input [value]="profile.business.contact.email" readonly></ion-input>
+      </ion-item>
+      
+    </div>    
+
+  </ion-card-content>
+</ion-card>
