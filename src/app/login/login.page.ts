@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController, ToastController } from '@ionic/angular';
+
+import { LoginResponse } from './../models/login-response/login-response.model';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  authError: LoginResponse;
 
-  ngOnInit() {
+  constructor(private navCtrl: NavController, private toastCtrl: ToastController) { }
+
+  ngOnInit() { }
+
+  async login(event) {
+    if (!event.error) {
+      (await this.toastCtrl.create({ message: `Welcome to beep ${event.result.user.email}`, duration: 3000 })).present();
+
+      this.navCtrl.navigateRoot('/');
+    } else {
+      this.authError = event;
+      console.error(event);
+    }
   }
-
 }

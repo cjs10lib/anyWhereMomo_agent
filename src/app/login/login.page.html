@@ -6,7 +6,9 @@
 
       <ion-img src="assets/logo/logo.png" alt="Logo"></ion-img>
 
-      <app-login-form></app-login-form>
+      <!-- <p class="auth-error" *ngIf="authError?.error">{{ authError?.error?.message }}</p> -->
+
+      <app-login-form (loginStatus)="login($event)"></app-login-form>
 
     </div>
   </div>
