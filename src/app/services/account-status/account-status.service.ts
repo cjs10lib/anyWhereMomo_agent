@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 
 import { AccountStatus } from '../../models/account-status/account-status.model';
+import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,10 @@ import { AccountStatus } from '../../models/account-status/account-status.model'
 export class AccountStatusService {
 
   constructor(private db: AngularFirestore) { }
+
+  async verifyAccountStatus(accountId: string) {
+    return (await this.db.doc(`account-status/${accountId}`).ref.get()).exists;
+  }
 
   saveAccountStatusOnRegistration(accountId: string) {
 
@@ -23,7 +29,6 @@ export class AccountStatusService {
       this.db.doc(`account-status/${accountId}`).set(accountStatus);
       return true;
     } catch (e) {
-      console.log(e);
       return false;
     }
   }
