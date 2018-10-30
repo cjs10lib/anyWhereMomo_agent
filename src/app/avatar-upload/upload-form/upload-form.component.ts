@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,12 +8,14 @@ import { Router } from '@angular/router';
 })
 export class UploadFormComponent implements OnInit {
 
+  @Input() accountId: string;
+
   constructor(private router: Router) { }
 
   ngOnInit() { }
 
   navigateToAccountStatusPage() {
-    this.router.navigate(['account-status']);
+    this.router.navigate(['account-status', this.accountId]);
   }
 
 }

@@ -1,3 +1,6 @@
+import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { AccountStatusService } from './../services/account-status/account-status.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountStatusPage implements OnInit {
 
-  constructor() { }
+  accountId: string;
 
-  ngOnInit() { }
+  constructor(private accountStatusService: AccountStatusService, private route: ActivatedRoute, private navCtrl: NavController) { }
+
+  ngOnInit() {
+    this.accountId = this.route.snapshot.paramMap.get('id');
+  }
+
+  acceptAccountReview() {
+    const result = this.accountStatusService.saveAccountStatusOnRegistration(this.accountId);
+    result ? this.navCtrl.navigateRoot('/') : console.error(result);
+  }
 
 }

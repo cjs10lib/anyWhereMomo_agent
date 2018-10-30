@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
 import { ProfileService } from '../../services/profile/profile.service';
 import { User } from 'firebase';
 import { Subscription } from 'rxjs';
+import { SaveProfileResult } from '../../models/save-profile-result/save-profile-result.model';
 
 @Component({
   selector: 'app-profile-form',
@@ -14,7 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProfileFormComponent implements OnInit, OnDestroy {
 
-  @Output() saveProfileResult: EventEmitter<boolean>;
+  @Output() saveProfileResult: EventEmitter<SaveProfileResult>;
 
   account: User;
 
@@ -34,7 +35,7 @@ export class ProfileFormComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private authService: AuthService, private profileService: ProfileService) {
-    this.saveProfileResult = new EventEmitter<boolean>();
+    this.saveProfileResult = new EventEmitter<SaveProfileResult>();
   }
 
   ngOnInit() {
@@ -51,7 +52,10 @@ export class ProfileFormComponent implements OnInit, OnDestroy {
 
   async saveProfile() {
     const result = await this.profileService.addProfile(this.profile, this.account);
-    this.saveProfileResult.emit(result);
+    this.saveProfileResult.emit({
+      status: result,
+      account: this.account
+    });
   }
 
 }

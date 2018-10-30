@@ -1,5 +1,7 @@
+import { User } from 'firebase';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SaveProfileResult } from '../models/save-profile-result/save-profile-result.model';
 
 @Component({
   selector: 'app-edit-profile',
@@ -8,12 +10,14 @@ import { Router } from '@angular/router';
 })
 export class EditProfilePage implements OnInit {
 
+  userAccount: User;
+
   constructor(private router: Router) { }
 
   ngOnInit() { }
 
-  navigateToAvatarUploadPage(event: boolean) {
-    event ? this.router.navigate(['avatar-upload']) : console.error(event);
+  navigateToAvatarUploadPage(event: SaveProfileResult) {
+    event.status ? this.router.navigate(['avatar-upload', event.account.uid]) : console.error(event.status);
   }
 
 }

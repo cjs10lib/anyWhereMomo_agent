@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AvatarUploadPage implements OnInit {
 
-  constructor() { }
+  userAccountId: string;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.userAccountId = this.route.snapshot.paramMap.get('id');
   }
 
 }
