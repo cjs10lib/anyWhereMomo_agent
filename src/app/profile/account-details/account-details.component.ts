@@ -1,7 +1,9 @@
+import { AuthService } from './../../services/auth-service/auth.service';
 import { Profile } from './../../models/profile/profile.model';
 import { ProfileService } from './../../services/profile/profile.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-details',
@@ -16,7 +18,10 @@ export class AccountDetailsComponent implements OnInit {
     }
   } as Profile;
 
-  constructor(private profileService: ProfileService, private loadingCtrl: LoadingController) { }
+  constructor(private profileService: ProfileService,
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private loadingCtrl: LoadingController) { }
 
   async ngOnInit() {
     const loader = await this.loadingCtrl.create({message: 'Loading profile...'});
@@ -27,6 +32,11 @@ export class AccountDetailsComponent implements OnInit {
 
       loader.dismiss();
     });
+  }
+
+  async signOut() {
+    await this.authService.signOut();
+    this.navCtrl.navigateRoot('/login');
   }
 
 }

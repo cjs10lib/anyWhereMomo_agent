@@ -14,8 +14,13 @@ export class ProfileService {
   constructor(private db: AngularFirestore, private authService: AuthService) { }
 
   getAuthenticatedUserProfile() {
+    // return this.authService.getAuthState()
+    //   .pipe(switchMap(user => this.db.doc(`profile/${user.uid}`)
+    //   .valueChanges().pipe(take(1))));
+
     return this.authService.getAuthState()
-      .pipe(switchMap(user => this.db.doc(`profile/${user.uid}`)
+      .pipe(map(user => user.uid),
+      mergeMap(authId => this.db.doc(`profile/${authId}`)
       .valueChanges().pipe(take(1))));
   }
 

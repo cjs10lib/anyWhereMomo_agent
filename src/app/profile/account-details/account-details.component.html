@@ -7,7 +7,8 @@
         <ion-icon name="compass" color="primary"></ion-icon>
         {{ profile?.business?.contact?.address }}
       </ion-card-subtitle>
-      <ion-button expand="block" fill="outline" color="primary">Log Out</ion-button>
+
+      <ion-button expand="block" fill="outline" color="primary" (click)="signOut()">Log Out</ion-button>
     </div>
   </ion-card-header>
 
