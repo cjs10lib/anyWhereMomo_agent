@@ -69,7 +69,7 @@
     </div> -->
   
     <ion-item>
-      <ion-label position="floating" color="medium">Address</ion-label>
+      <ion-label position="stacked" color="medium">Address</ion-label>
       <ion-textarea color="medium" [(ngModel)]="profile.business.contact.address" name="address" #address="ngModel" required></ion-textarea>
     </ion-item>
     <div *ngIf="address.touched && address.invalid">
@@ -77,7 +77,11 @@
     </div>
   
     <div class="actions">
-      <ion-button color="primary" expand="block" fill="solid" (click)="saveProfile()" [disabled]="f.invalid">NEXT STEP</ion-button>
+      <ion-button *ngIf="userAccount; else updateProfile" color="primary" expand="block" fill="solid" (click)="saveProfile()" [disabled]="f.invalid">UPDATE</ion-button>
     </div>
+    
+    <ng-template #updateProfile>
+      <ion-button color="primary" expand="block" fill="solid" (click)="saveProfile()" [disabled]="f.invalid">NEXT STEP</ion-button>
+    </ng-template>
   </div>
 </form>

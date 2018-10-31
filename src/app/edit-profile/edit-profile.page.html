@@ -1,11 +1,12 @@
 
 <ion-content padding>
 
+  <ion-back-button *ngIf="userAccount" defaultHref="/profile" [routerDirection]="'back'" color="light"></ion-back-button>
   
   <div class="profile-content">
-    <h4>Step 1 (Bio & Business Information)</h4>
+    <h4 *ngIf="!userAccount">Step 1 (Bio & Business Information)</h4>
     
-    <app-profile-form (saveProfileResult)="navigateToAvatarUploadPage($event)"></app-profile-form>
+    <app-profile-form (saveProfileResult)="navigateToAvatarUploadPage($event)" [userAccount]="userAccount"></app-profile-form>
   </div>
 
 </ion-content>

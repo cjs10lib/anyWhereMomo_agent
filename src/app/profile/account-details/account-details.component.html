@@ -1,4 +1,5 @@
-<ion-card>
+
+<ion-card *ngIf="profile">
   <ion-card-header>
     <div class="account-bio">      
       <ion-card-title>{{ profile?.firstName }} {{ profile?.lastName }}</ion-card-title>
@@ -15,7 +16,6 @@
   <ion-card-content>
 
     <div class="account-profile">
-
       <ion-item-divider>
         <ion-label>Business</ion-label>
       </ion-item-divider>

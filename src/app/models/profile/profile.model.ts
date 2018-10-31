@@ -1,4 +1,5 @@
 export interface Profile {
+    uid?: string;
     firstName?: string;
     lastName?: string;
     business?: Business;

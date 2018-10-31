@@ -1,12 +1,13 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 
 import { Profile } from '../../models/profile/profile.model';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { ProfileService } from '../../services/profile/profile.service';
 import { User } from 'firebase';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject, combineLatest } from 'rxjs';
 import { SaveProfileResult } from '../../models/save-profile-result/save-profile-result.model';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-form',
@@ -14,8 +15,10 @@ import { SaveProfileResult } from '../../models/save-profile-result/save-profile
   styleUrls: ['./profile-form.component.scss']
 })
 export class ProfileFormComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   @Output() saveProfileResult: EventEmitter<SaveProfileResult>;
+  @Input() userAccount: string;
 
   account: User;
 
@@ -32,22 +35,22 @@ export class ProfileFormComponent implements OnInit, OnDestroy {
     { name: 'Large Enterprise', code: 'LBE' }
   ];
 
-  subscription: Subscription;
-
   constructor(private authService: AuthService, private profileService: ProfileService) {
     this.saveProfileResult = new EventEmitter<SaveProfileResult>();
   }
 
   ngOnInit() {
-    this.subscription = this.authService.getAuthState().subscribe(user => {
-      this.account = user;
-    });
+    combineLatest(this.authService.getAuthState(), this.profileService.getAuthenticatedUserProfile())
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(([user, profile]) => {
+        this.account = user;
+        this.profile = profile;
+      });
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   async saveProfile() {
