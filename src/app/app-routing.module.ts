@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,18 +10,19 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
+    loadChildren: './home/home.module#HomePageModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
   },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-  { path: 'edit-profile', loadChildren: './edit-profile/edit-profile.module#EditProfilePageModule' },
-  { path: 'avatar-upload/:id', loadChildren: './avatar-upload/avatar-upload.module#AvatarUploadPageModule' },
-  { path: 'account-status/:id', loadChildren: './account-status/account-status.module#AccountStatusPageModule' },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' }
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule'},
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [AuthGuard] },
+  { path: 'edit-profile', loadChildren: './edit-profile/edit-profile.module#EditProfilePageModule', canActivate: [AuthGuard] },
+  { path: 'avatar-upload/:id', loadChildren: './avatar-upload/avatar-upload.module#AvatarUploadPageModule', canActivate: [AuthGuard] },
+  { path: 'account-status/:id', loadChildren: './account-status/account-status.module#AccountStatusPageModule', canActivate: [AuthGuard] },
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuard] }
 ];
 
 @NgModule({
