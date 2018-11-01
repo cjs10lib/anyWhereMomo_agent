@@ -18,11 +18,12 @@ const routes: Routes = [
     loadChildren: './list/list.module#ListPageModule'
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule'},
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [AuthGuard] },
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'edit-profile', loadChildren: './edit-profile/edit-profile.module#EditProfilePageModule', canActivate: [AuthGuard] },
   { path: 'avatar-upload/:id', loadChildren: './avatar-upload/avatar-upload.module#AvatarUploadPageModule', canActivate: [AuthGuard] },
   { path: 'account-status/:id', loadChildren: './account-status/account-status.module#AccountStatusPageModule', canActivate: [AuthGuard] },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuard] }
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuard] },
+  { path: 'verify-phone', loadChildren: './verify-phone/verify-phone.module#VerifyPhonePageModule' }
 ];
 
 @NgModule({

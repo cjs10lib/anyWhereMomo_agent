@@ -40,12 +40,19 @@ export class ProfileFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    combineLatest(this.authService.getAuthState(), this.profileService.getAuthenticatedUserProfile())
+    this.authService.getAuthState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([user, profile]) => {
+      .subscribe(user => {
         this.account = user;
-        this.profile = profile;
       });
+
+      if (this.userAccount) {
+        this.profileService.getAuthenticatedUserProfile()
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(profile => {
+            this.profile = profile;
+          });
+      }
   }
 
   ngOnDestroy() {

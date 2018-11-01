@@ -1,0 +1,63 @@
+
+<ion-content padding>
+
+  <div class="verification-content">
+    <div class="vertical-align">
+      
+      <!-- <form #f="ngForm">
+        <div class="verify-form">
+          <h1>Enter your phone number</h1>
+    
+          <ion-item>
+            <ion-label position="fixed" color="medium">+233</ion-label>
+            <ion-input type="tel" [(ngModel)]="phone" name="phone" #phone="ngModel" color="medium" maxlength="9" placeholder="eg. 123446789" required></ion-input>
+          </ion-item>
+          <div *ngIf="phone.touched && phone.invalid">
+            <span class="global-error">Phone number is <strong>required</strong></span>
+          </div>
+  
+          <div class="actions">
+            <ion-button color="primary" expand="block" fill="solid" [disabled]="f.invalid">CONTINUE</ion-button>
+          </div>
+        </div>
+      </form> -->
+  
+      <!-- <div *ngIf="user"> -->
+
+        <h1>Enter your phone number</h1>
+  
+        <ion-item>
+          <ion-label position="fixed" color="medium">+233</ion-label>
+          <ion-input type="text" [(ngModel)]="phoneNumber.country" name="country" color="medium" maxlength="2" placeholder="1" required></ion-input>
+          <ion-input type="text" [(ngModel)]="phoneNumber.area" name="area" color="medium" maxlength="3" placeholder="949" required></ion-input>
+          <ion-input type="text" [(ngModel)]="phoneNumber.prefix" name="prefix" color="medium" maxlength="3" placeholder="555" required></ion-input>
+          <ion-input type="text" [(ngModel)]="phoneNumber.line" name="line" color="medium" maxlength="4" placeholder="5555" required></ion-input>
+        </ion-item>
+
+        <div id="recaptcha-container"></div>
+
+        <div class="actions">
+          <ion-button color="primary" expand="block" fill="solid" (click)="sendLoginCode()">CONTINUE</ion-button>
+        </div>
+
+        <div *ngIf="windowRef.confirmationResult">
+          <ion-item>
+            <ion-label position="fixed" color="medium">+233</ion-label>
+            <ion-input type="text" [(ngModel)]="verificationCode" name="code" color="medium" maxlength="2" placeholder="1" required></ion-input>
+          </ion-item>
+
+          <div class="actions">
+            <ion-button color="primary" expand="block" fill="solid" (click)="verifyLoginCode()">VERIFY</ion-button>
+          </div>
+
+          <div *ngIf="user">
+            You have successfully login with your phone number
+            UserId: {{ user?.uid }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  <!-- </div> -->
+
+</ion-content>
