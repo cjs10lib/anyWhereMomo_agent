@@ -24,7 +24,7 @@ export class HomePage {
     this.map = leaflet.map('map').fitWorld();
     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attributions: 'Cybotech Coorp',
-      maxZoom: 10
+      maxZoom: 20
     }).addTo(this.map);
   }
 
