@@ -1,5 +1,5 @@
-<ion-content padding>
-  <ion-menu-button></ion-menu-button>
+<ion-content>
+  <!-- <ion-menu-button></ion-menu-button> -->
 
   <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button (click)="navigateToProfilePage()" [routerDirection]="'forward'">
@@ -14,4 +14,7 @@
       <ion-icon name="wifi"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+  <div id="map" style="width:100%; height:100vh;"></div>
+
 </ion-content>
