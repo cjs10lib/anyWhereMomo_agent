@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { GeolocationPosition, Plugins } from '@capacitor/core';
 import * as leaflet from 'leaflet';
 
@@ -12,17 +12,27 @@ const { Geolocation } = Plugins;
 })
 export class MapComponent implements OnInit, AfterViewInit {
 
+  @Output() position: EventEmitter<GeolocationPosition>;
+
   @ViewChild('map') mapContainer: ElementRef;
   map: leaflet.Map;
 
-  constructor() { }
+  constructor() {
+    this.position = new EventEmitter<GeolocationPosition>();
+  }
 
   ngOnInit() { }
 
+  // ionViewDidEnter() {
+  //   if (!this.map) {
+  //     this.getCurrentPosition();
+  //   }
+  // }
+
   ngAfterViewInit() {
-    if (!this.map) {
+    // if (!this.map) {
       this.getCurrentPosition();
-    }
+    // }
   }
 
   initializeMap(position: GeolocationPosition) {
@@ -44,10 +54,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   async getCurrentPosition() {
+    this.map = null;
+
     const position = await Geolocation.getCurrentPosition();
 
     this.initializeMap(position);
     this.addMarker(position);
+
+    this.position.emit(position);
   }
 
 }

@@ -1,38 +1,46 @@
 <ion-content>
-  <!-- <ion-menu-button></ion-menu-button> -->
 
   <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="navigateToProfilePage()" [routerDirection]="'forward'">
+    <ion-fab-button [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="navigateToProfilePage()" [routerDirection]="'forward'">
       <ion-avatar>
         <img src="assets/avatar/avatar.png">
       </ion-avatar>
     </ion-fab-button>
   </ion-fab>
 
+  <!-- <ion-fab vertical="center" horizontal="end" slot="fixed">    
+    <ion-fab-button mini [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="map.getCurrentPosition()">
+      <ion-icon name="locate"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">    
-    <ion-fab-button>
+    <ion-fab-button [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="toggleStatus()">
       <ion-icon name="wifi"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <app-map></app-map>
+  <app-map #map (position)="getGeolocation($event)"></app-map>
  
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="dark">
+  <ion-toolbar [ngClass]="{ online: isOnline, offline: !isOnline }">
     <ion-buttons slot="start">
       <ion-button>
-        <ion-icon slot="icon-only" name="md-arrow-dropup"></ion-icon>
+        <ion-icon slot="icon-only" color="light" name="md-arrow-dropup"></ion-icon>
       </ion-button>
     </ion-buttons>
 
-    <ion-title>You're Offline</ion-title>
-
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon slot="icon-only" name="menu"></ion-icon>
+        <ion-icon slot="icon-only" color="light" name="menu"></ion-icon>
       </ion-button>
-    </ion-buttons>    
+    </ion-buttons> 
+
+    <ion-title color="light">
+      <span [hidden]="isOnline">You're Offline</span>
+      <span [hidden]="!isOnline">You're Online</span>      
+    </ion-title>       
   </ion-toolbar>
 </ion-footer>
