@@ -1,12 +1,28 @@
 <ion-app>
   <ion-split-pane>
     <ion-menu>
-      <ion-header>
+      <!-- <ion-header>
         <ion-toolbar>
           <ion-title>Menu</ion-title>
         </ion-toolbar>
-      </ion-header>
+      </ion-header> -->
       <ion-content>
+
+        <div class="sidemenu-profile-container">
+          <img class="avatar" src="assets/avatar/avatar.png" alt="Avatar">
+          <div class="profile-bio">      
+            <ion-card-title>Christian Onwe</ion-card-title>
+          
+            <ion-card-subtitle>
+              <ion-icon name="compass" color="primary"></ion-icon>
+              East Legon Accra
+            </ion-card-subtitle>
+      
+            <ion-button expand="block" fill="outline" color="primary">Log Out</ion-button>
+            
+          </div>
+        </div>
+
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">

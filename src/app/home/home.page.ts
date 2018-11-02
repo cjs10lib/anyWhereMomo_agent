@@ -58,7 +58,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async toggleStatus() {
-    const result = await this.statusService.setUserOnline(this.accountStatus, this.account);
+    const result = await this.statusService.setUserOnlineOrOffline(this.accountStatus, this.account);
     console.log(result);
   }
 

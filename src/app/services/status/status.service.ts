@@ -14,7 +14,7 @@ export class StatusService {
     return this.db.doc(`status/${account.uid}`).valueChanges();
   }
 
-  async setUserOnline(status: Status, account: User) {
+  async setUserOnlineOrOffline(status: Status, account: User) {
     const statusRef = (await this.db.doc(`status/${account.uid}`).ref.get()).exists;
 
     if (statusRef) {
