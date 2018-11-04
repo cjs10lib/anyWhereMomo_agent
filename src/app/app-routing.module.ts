@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: 'avatar-upload/:id', loadChildren: './avatar-upload/avatar-upload.module#AvatarUploadPageModule', canActivate: [AuthGuard] },
   { path: 'account-status/:id', loadChildren: './account-status/account-status.module#AccountStatusPageModule', canActivate: [AuthGuard] },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuard] },
-  { path: 'verify-phone', loadChildren: './verify-phone/verify-phone.module#VerifyPhonePageModule' }
+  { path: 'verify-phone', loadChildren: './verify-phone/verify-phone.module#VerifyPhonePageModule' },
+  { path: 'notification', loadChildren: './notification/notification.module#NotificationPageModule' }
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+import { NotificationPageModule } from './../notification/notification.module';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GeolocationPosition } from '@capacitor/core';
@@ -8,6 +9,8 @@ import { takeUntil, concatMap } from 'rxjs/operators';
 import { Status } from '../models/status/status.model';
 import { AuthService } from './../services/auth-service/auth.service';
 import { StatusService } from './../services/status/status.service';
+import { ModalController } from '@ionic/angular';
+import { NotificationPage } from '../notification/notification.page';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +25,10 @@ export class HomePage implements OnInit, OnDestroy {
 
   isOnline: boolean;
 
-  constructor(private router: Router, private authService: AuthService, private statusService: StatusService) { }
+  constructor(private router: Router,
+    private authService: AuthService,
+    private statusService: StatusService,
+    private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.authService.getAuthState().pipe(concatMap(user => {
@@ -53,8 +59,8 @@ export class HomePage implements OnInit, OnDestroy {
     };
   }
 
-  navigateToProfilePage() {
-    this.router.navigate(['profile']);
+  navigateToNotificationsPage() {
+    this.router.navigate(['notification']);
   }
 
   async toggleStatus() {

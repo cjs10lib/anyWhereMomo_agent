@@ -1,7 +1,8 @@
 <ion-content>
 
   <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="navigateToProfilePage()" [routerDirection]="'forward'">
+    <!-- <ion-fab-button [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="navigateToProfilePage()" [routerDirection]="'forward'"> -->
+    <ion-fab-button [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="navigateToNotificationsPage()" [routerDirection]="'forward'" padding>
       <ion-avatar>
         <img src="assets/avatar/avatar.png">
       </ion-avatar>

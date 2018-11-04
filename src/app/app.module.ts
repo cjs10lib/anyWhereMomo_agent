@@ -1,3 +1,4 @@
+import { NotificationPageModule } from './notification/notification.module';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -22,7 +23,9 @@ import { AppComponent } from './app.component';
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+
+    NotificationPageModule
   ],
   providers: [
     StatusBar,
