@@ -13,7 +13,7 @@
         </ion-avatar>
       </ion-fab-button>
       <ion-fab-list side="start">
-        <ion-fab-button>
+        <ion-fab-button (click)="navigateToAccountPage()" [routerDirection]="'forward'">
           <ion-icon name="settings"></ion-icon>
         </ion-fab-button>
         <ion-fab-button (click)="navigateToProfilePage()" [routerDirection]="'forward'">
@@ -21,7 +21,7 @@
             <img src="assets/avatar/avatar.png">
           </ion-avatar>
         </ion-fab-button>
-        <ion-fab-button>
+        <ion-fab-button (click)="navigateToEarningsPage()" [routerDirection]="'forward'">
           <ion-icon name="wallet"></ion-icon>
         </ion-fab-button>
       </ion-fab-list>
@@ -37,7 +37,7 @@
       <ion-card-content>
         <ion-list>
           <ion-item>
-            <ion-icon color="secondary" slot="start" name="information-circle-outline"></ion-icon>
+            <ion-icon color="primary" slot="start" name="information-circle-outline"></ion-icon>
             <ion-label>
               <h3>Download new update</h3>
               <p>22 November 2018</p>
@@ -45,7 +45,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-icon color="secondary" slot="start" name="contact"></ion-icon>
+            <ion-icon color="primary" slot="start" name="contact"></ion-icon>
             <ion-label>
               <h3>Update your profile</h3>
               <p>22 November 2018</p>
@@ -53,7 +53,7 @@
           </ion-item>
           
           <ion-item>
-            <ion-icon color="secondary" slot="start" name="settings"></ion-icon>
+            <ion-icon color="primary" slot="start" name="settings"></ion-icon>
             <ion-label>
               <h3>Account status update</h3>
               <p>22 November 2018</p>
@@ -61,7 +61,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-icon color="secondary" slot="start" name="cog"></ion-icon>
+            <ion-icon color="primary" slot="start" name="cog"></ion-icon>
             <ion-label>
               <h3>Incomplete transaction</h3>
               <p>22 November 2018</p>

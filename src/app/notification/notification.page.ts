@@ -17,8 +17,16 @@ export class NotificationPage implements OnInit {
     this.router.navigate(['/']);
   }
 
+  navigateToEarningsPage() {
+    this.router.navigate(['earnings']);
+  }
+
   navigateToProfilePage() {
     this.router.navigate(['profile']);
+  }
+
+  navigateToAccountPage() {
+    this.router.navigate(['account']);
   }
 
 }
