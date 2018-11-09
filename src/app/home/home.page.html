@@ -10,8 +10,8 @@
   </ion-fab>
 
   <!-- <ion-fab vertical="center" horizontal="end" slot="fixed">    
-    <ion-fab-button mini [ngClass]="{ online: isOnline, offline: !isOnline }" (click)="map.getCurrentPosition()">
-      <ion-icon name="locate"></ion-icon>
+    <ion-fab-button mini color="primary" (click)="map.watchPosition()">
+      <ion-icon name="locate" color="light"></ion-icon>
     </ion-fab-button>
   </ion-fab> -->
 
@@ -21,7 +21,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <app-map #map (position)="getGeolocation($event)" [agentsStatusWithinRadius]="agentsStatusWithinRadius" [isOnline]="isOnline"></app-map>
+  <app-map #map (position)="getGeolocation($event)" (availableStatus)="getAvailableStatus($event)" [account]="account"></app-map>
  
 </ion-content>
 

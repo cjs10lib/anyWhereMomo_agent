@@ -25,6 +25,10 @@ export class ProfileService {
     //   .valueChanges().pipe(take(1))));
   }
 
+  async verifyProfileStatus(accountId: string) {
+    return (await this.db.doc(`profile/${accountId}`).ref.get()).exists;
+  }
+
   getProfile(accountId: string) {
     return this.db.doc(`profile/${accountId}`).valueChanges().pipe(take(1));
   }

@@ -11,8 +11,8 @@ export class UserPresenceService {
 
   setOnlineStatus() {
     const uid = firebase.auth().currentUser.uid;
-    const userStatusDatabaseRef = firebase.database().ref('/online-status/' + uid);
-    const userStatusFirestoreRef = this.db.doc(`online-status/${uid}`);
+    const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+    const userStatusFirestoreRef = this.db.doc(`status/${uid}`);
 
     const isOfflineForDatabase = {
       uid: uid,

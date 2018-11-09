@@ -1,6 +1,4 @@
-import { GeolocationPosition } from '@capacitor/core';
-
-export interface Status {
+export interface AvailableStatus {
     uid?: string;
     account?: string;
     position?: Position;

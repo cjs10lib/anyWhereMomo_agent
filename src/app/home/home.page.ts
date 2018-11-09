@@ -7,11 +7,11 @@ import { User } from 'firebase';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil, concatMap } from 'rxjs/operators';
 
-import { Status } from '../models/status/status.model';
 import { AuthService } from './../services/auth-service/auth.service';
-import { StatusService } from './../services/status/status.service';
-import { ModalController } from '@ionic/angular';
 import { NotificationPage } from '../notification/notification.page';
+import { AvailableStatus } from '../models/available-status/available-status.model';
+import { AvailableStatusService } from '../services/available-status/available-status.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -22,29 +22,22 @@ export class HomePage implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   account: User;
-  accountStatus: Status;
+  availableStatus: AvailableStatus;
 
-  agentsStatusWithinRadius: Status[] = [];
   isOnline: boolean;
 
   constructor(private router: Router,
     private authService: AuthService,
-    private statusService: StatusService,
-    private modalCtrl: ModalController,
+    private availableStatusService: AvailableStatusService,
     private userPresenceService: UserPresenceService) { }
 
   ngOnInit() {
     this.userPresenceService.setOnlineStatus();
 
-    this.authService.getAuthState().pipe(concatMap(user => {
+    this.authService.getAuthState().pipe(takeUntil(this.destroy$)).subscribe(user => {
       this.account = user;
 
-      // return this.statusService.getUserStatus(user);
-      return this.statusService.getAgentsWithinRadius();
-    }), takeUntil(this.destroy$)).subscribe(status => {
-      status.length ? this.isOnline = true : this.isOnline = false;
-      this.agentsStatusWithinRadius = status;
-      console.log(status);
+      console.log(user);
     });
   }
 
@@ -54,7 +47,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   getGeolocation(event: GeolocationPosition) {
-    this.accountStatus = {
+    this.availableStatus = {
       account: this.account.uid,
       position: {
         latitude: event.coords.latitude,
@@ -67,12 +60,16 @@ export class HomePage implements OnInit, OnDestroy {
     };
   }
 
+  getAvailableStatus(event: boolean) {
+    this.isOnline = event;
+  }
+
   navigateToNotificationsPage() {
     this.router.navigate(['notification']);
   }
 
   async toggleStatus() {
-    const result = await this.statusService.setUserOnlineOrOffline(this.accountStatus, this.account);
+    const result = await this.availableStatusService.setUserAvailableStatusOnlineOrOffline(this.availableStatus, this.account);
     console.log(result);
   }
 

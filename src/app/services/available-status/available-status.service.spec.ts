@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { StatusService } from './status.service';
+import { AvailableStatusService } from './available-status.service';
 
 describe('StatusService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: StatusService = TestBed.get(StatusService);
+    const service: AvailableStatusService = TestBed.get(AvailableStatusService);
     expect(service).toBeTruthy();
   });
 });
