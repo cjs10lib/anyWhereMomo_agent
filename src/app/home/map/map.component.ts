@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Status } from './../../models/status/status.model';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Input, ViewChild } from '@angular/core';
 import { GeolocationPosition, Plugins } from '@capacitor/core';
 import * as leaflet from 'leaflet';
 
@@ -14,6 +15,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   @Output() position: EventEmitter<GeolocationPosition>;
 
+  @Input() agentsStatusWithinRadius: Status[];
+  @Input() isOnline: boolean;
+
   @ViewChild('map') mapContainer: ElementRef;
   map: leaflet.Map;
 
@@ -23,28 +27,31 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngOnInit() { }
 
-  // ionViewDidEnter() {
-  //   if (!this.map) {
-  //     this.getCurrentPosition();
-  //   }
-  // }
-
   ngAfterViewInit() {
-    // if (!this.map) {
-      this.getCurrentPosition();
-    // }
+    this.initializeMap();
+    this.watchCurrentPosition();
   }
 
-  initializeMap(position: GeolocationPosition) {
-    this.map = leaflet.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
+  initializeMap() {
+    // this.map = leaflet.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
+    this.map = leaflet.map('map');
     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attributions: 'Cybotech Coorp',
     }).addTo(this.map);
+
+    // this.loadMakers();
   }
 
-  addMarker(position: GeolocationPosition) {
+  loadMakers() {
+    this.agentsStatusWithinRadius.forEach(status => {
+      this.addMarker(status);
+    });
+    console.log(this.agentsStatusWithinRadius);
+  }
+
+  addMarker(status: Status) {
     const markerGroup = leaflet.featureGroup();
-    const marker: any = leaflet.marker([position.coords.latitude, position.coords.longitude]);
+    const marker: any = leaflet.marker([status.position.latitude, status.position.longitude]);
 
     markerGroup.addLayer(marker)
       .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
@@ -53,15 +60,20 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.map.addLayer(markerGroup);
   }
 
-  async getCurrentPosition() {
-    this.map = null;
+  async watchCurrentPosition() {
+    const wait = Geolocation.watchPosition({}, (position, err) => {
+      console.log(position, err);
 
-    const position = await Geolocation.getCurrentPosition();
+      if (this.map) {
+        this.map.setView([position.coords.latitude, position.coords.longitude], 20);
+      }
 
-    this.initializeMap(position);
-    this.addMarker(position);
+      // if (this.isOnline) {
+        this.position.emit(position);
+        this.loadMakers();
+      // }
 
-    this.position.emit(position);
+    });
   }
 
 }

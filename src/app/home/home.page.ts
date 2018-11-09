@@ -1,9 +1,10 @@
+import { UserPresenceService } from './../services/user-presence/user-presence.service';
 import { NotificationPageModule } from './../notification/notification.module';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GeolocationPosition } from '@capacitor/core';
 import { User } from 'firebase';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil, concatMap } from 'rxjs/operators';
 
 import { Status } from '../models/status/status.model';
@@ -23,20 +24,27 @@ export class HomePage implements OnInit, OnDestroy {
   account: User;
   accountStatus: Status;
 
+  agentsStatusWithinRadius: Status[] = [];
   isOnline: boolean;
 
   constructor(private router: Router,
     private authService: AuthService,
     private statusService: StatusService,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private userPresenceService: UserPresenceService) { }
 
   ngOnInit() {
+    this.userPresenceService.setOnlineStatus();
+
     this.authService.getAuthState().pipe(concatMap(user => {
       this.account = user;
 
-      return this.statusService.getUserStatus(user);
+      // return this.statusService.getUserStatus(user);
+      return this.statusService.getAgentsWithinRadius();
     }), takeUntil(this.destroy$)).subscribe(status => {
-      status ? this.isOnline = true : this.isOnline = false;
+      status.length ? this.isOnline = true : this.isOnline = false;
+      this.agentsStatusWithinRadius = status;
+      console.log(status);
     });
   }
 
